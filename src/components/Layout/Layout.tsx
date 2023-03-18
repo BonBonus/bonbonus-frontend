@@ -35,6 +35,7 @@ export const Layout: FC = () => {
         const tokenId = await getToken(address)
         dispatch(setTokenId(Number(tokenId)))
       } catch (e: any) {
+        dispatch(setTokenId(null))
         console.log('no token')
       }
     }
@@ -53,17 +54,6 @@ export const Layout: FC = () => {
                 <img src="/src/assets/logo.svg" />
                 <div className={s.name}>BonBonus</div>
               </a>
-              <Menu
-                menuClassName={s.menu}
-                onClose={() => setMenuOpen(false)}
-                onOpen={() => setMenuOpen(true)}
-                isOpen={menuOpen}
-              >
-                <ul>
-                  <li>1</li>
-                  <li>2</li>
-                </ul>
-              </Menu>
               <div className={s.profile}>
                 <ConnectButton />
               </div>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { backend } from '../../api/configs/axios'
 import { userApi } from '../../api/userApi'
@@ -7,9 +7,9 @@ import s from './CheckToken.module.scss';
 import { Button } from 'primereact/button'
 import { ProgressSpinner } from 'primereact/progressspinner'
 
-export const CheckToken: React.FC = () => {
+export const CheckToken: FC = () => {
   const token = window.location.pathname.split('customer-points/')[1];
-  const noToken = false;
+  const tokenExist = true;
   const noAccessState = false;
   // const [noAccessState, setNoAccessState] = useState<boolean | null>(null);
   // const [noToken, setNoToken] = useState<boolean | null>(null);
@@ -54,7 +54,7 @@ export const CheckToken: React.FC = () => {
 
   return (
     <div>
-      {noAccessState === false && noToken === false ? (
+      {noAccessState === false && tokenExist ? (
         <>
           <div className={s.control}>
             <div className={s.title}>Loyalty Programs</div>
@@ -91,7 +91,7 @@ export const CheckToken: React.FC = () => {
             </div>
           </div>
         </>
-      ) : noToken ? (
+      ) : !tokenExist ? (
         <>It seems that such a token does not exist.</>
       ) : noAccessState ? (
         <> It seems that you do not have access rights to view this page</>

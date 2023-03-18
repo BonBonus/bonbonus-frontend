@@ -38,6 +38,8 @@
 
       @include phone-only {
         justify-content: space-between;
+        flex-direction: column-reverse;
+        gap: 20px;
       }
 
       .homeLink {
@@ -54,6 +56,7 @@
           font-size: 26px;
           line-height: 31px;
           margin-left: 12px;
+          color: #2e2e2e;
         }
 
         + div {
@@ -63,7 +66,6 @@
 
         @include phone-only {
           order: 1;
-          margin-left: 20px;
         }
       }
     }
@@ -98,8 +100,13 @@
     }
 
     .content {
+      padding: 0 60px;
       display: flex;
       margin-top: 4rem;
+
+      @include phone-only {
+        padding: 0;
+      }
     }
   }
 }

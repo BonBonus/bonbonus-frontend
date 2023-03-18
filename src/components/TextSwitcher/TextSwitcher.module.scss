@@ -1,0 +1,29 @@
+.text-switcher {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  padding: 16px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  position: relative;
+}
+
+.text-switcher__text {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  opacity: 0;
+  white-space: nowrap;
+  transition: left 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.text-switcher__text--active {
+  left: 0;
+  opacity: 1;
+}

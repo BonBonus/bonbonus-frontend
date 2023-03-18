@@ -3,12 +3,20 @@
 
 body {
   margin: 0;
-  background: black;
+  background: #ffffff;
+  color: black;
   font-family: sans-serif;
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
-  color: white;
+}
+
+.p-rating-icon {
+  font-size: 50px!important;
+}
+
+.p-rating {
+  margin: 36px 0;
 }
 
 a {

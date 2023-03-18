@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import ModalComponent from 'react-modal';
 import { QRCode } from 'react-qrcode-logo';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -9,10 +8,7 @@ import { useAccount } from 'wagmi';
 
 import { backend } from '../../api/configs/axios'
 import { userApi } from '../../api/userApi'
-import { usePistisScoreContract } from '../../blockchain/contracts/usePistisScoreContract'
-import copyImage from '@/images/copy.svg';
-import qrImage from '@/images/qr.svg';
-import { setTokenId } from '../../store/slices/userSlice'
+import { useBonBonusContract } from '../../blockchain/contracts/useBonBonusContract'
 import { RootState } from '../../store/store'
 
 import s from './Loyalty.module.scss';
@@ -40,13 +36,10 @@ export const Loyalty: React.FC = () => {
 
   const [programs, setPrograms] = useState<any>();
   const ref = useRef<HTMLDivElement>(null);
-  const { wallets } = usePistisScoreContract();
   const { isConnected, address } = useAccount();
-  const { mint } = usePistisScoreContract();
   const { openConnectModal } = useConnectModal();
 
   const isProd = process.env.REACT_APP_ENVIRONMENT === 'production';
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const getLoyaltyPrograms = async () => {
@@ -110,11 +103,11 @@ export const Loyalty: React.FC = () => {
             <div className={s.title}>Loyalty Programs</div>
             <div className={s.rightPull}>
               <div onClick={() => setQrOpened(!qrOpened)} className={s.rightPullItem}>
-                <img src={qrImage} />
+                <img src="/src/images/qr.svg" />
                 <span className={s.text}>See code</span>
               </div>
               <div onClick={copyHandler} className={s.rightPullItem}>
-                <img src={copyImage} />
+                <img src="/src/images/copy.svg" />
                 <span className={s.text}>Copy link</span>
               </div>
             </div>
@@ -142,7 +135,7 @@ export const Loyalty: React.FC = () => {
               <div className={s.qrTitle}>QR code of my loyalty program</div>
               <div className={s.subtitle}>
                 <span onClick={copyHandler} className={s.copy}>
-                  <img src={copyImage} />
+                  <img src="/src/images/copy.svg" />
                   Copy
                 </span>
               </div>

@@ -19,11 +19,15 @@
     padding: 48px;
     box-sizing: border-box;
 
+    @include desktop-up {
+      padding: 48px 64px;
+    }
+
     @include tablet-down {
-      padding: 48px 32px;
+      padding: 48px 48px;
     }
     @include phone-only {
-      padding: 48px 24px;
+      padding: 48px 36px;
     }
 
     .header {
@@ -118,6 +122,6 @@
 
 .connectContainer {
   display: flex;
-  height: 100vh;
+  flex-grow: 1;
   width: 100%;
 }

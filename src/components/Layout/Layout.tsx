@@ -4,16 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useUpdateEffect } from 'usehooks-ts';
-import { useAccount, useDisconnect, useSignMessage } from 'wagmi';
-import Logo from '../../assets/logo.svg'
-
-import { userApi } from '../../api/userApi'
-import {
-  setAuthenticated,
-  setTokenName,
-  setUserAddress
-} from '../../store/slices/userSlice'
-
+import { useAccount } from 'wagmi';
 import s from './Layout.module.scss';
 import { Connect } from '../../views/Connect/About'
 import { Welcome } from '../../views/Welcome/Welcome'
@@ -21,79 +12,37 @@ import { RootState } from '../../store/store'
 import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
 import { setTokenCongratsModalOpened } from '../../store/slices/appSlice'
+import { useBonBonusContract } from '../../blockchain/contracts/useBonBonusContract'
+import { setTokenId } from '../../store/slices/userSlice'
 
 export const Layout: FC = () => {
   const { address, isConnected } = useAccount();
-  const { data: signature, status: signStatus, reset } = useSignMessage();
-  const { disconnect } = useDisconnect();
   const [menuOpen, setMenuOpen] = useState(false);
-  const { token } = useSelector((state: RootState) => state.user);
   const { tokenCongratsModalOpened } = useSelector((state: RootState) => state.app);
+  const { token } = useSelector((state: RootState) => state.user);
+  const { mint, getToken } = useBonBonusContract();
 
   const dispatch = useDispatch();
-
-  const verifyAuth = async (address: string) => {
-    return await userApi.verify(String(address), String(signature));
-  };
-
-  useUpdateEffect(() => {
-    if (signature && address) {
-      verifyAuth(String(address)).then(() => temp(address));
-    }
-  }, [signature, address]);
-
-  const getUser = async () => {
-    try {
-      const user = await userApi.getUser();
-      if (user) {
-        dispatch(setAuthenticated(true));
-      }
-      return true;
-    } catch (e: any) {
-      if (e.response.data.statusCode === 401) {
-        return false;
-      }
-    }
-  };
 
   useUpdateEffect(() => {
     document.body.style.overflow = 'hidden';
     menuOpen ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = 'auto');
   }, [menuOpen]);
 
-  const getWallets = async (address: string) => {
-    // return await wallets(address);
-  };
-
-  const temp = async (address: string) => {
-    const userAuthorized = await getUser();
-    dispatch(setTokenName(undefined));
-    if (!userAuthorized) {
-      dispatch(setAuthenticated(false));
-      return;
-    }
-  };
-
   useEffect(() => {
+    const checkToken = async (address: string) => {
+      try {
+        const tokenId = await getToken(address)
+        dispatch(setTokenId(Number(tokenId)))
+      } catch (e: any) {
+        console.log('no token')
+      }
+    }
+
     if (isConnected && address) {
-      temp(address);
+      checkToken(address)
     }
   }, [address, isConnected]);
-
-  useUpdateEffect(() => {
-    if (!address) {
-      return;
-    }
-    userApi.logout().then(() => {
-      temp(address);
-    });
-  }, [address]);
-
-  const disconnectHandler = () => {
-    disconnect();
-    reset();
-    dispatch(setUserAddress(''));
-  };
 
   return (
     <div className={s.bg}>
@@ -101,7 +50,7 @@ export const Layout: FC = () => {
         {isConnected ? token ? <>
             <header className={s.header}>
               <a href="/" className={s.homeLink}>
-                <img src="src/assets/logo.svg" />
+                <img src="/src/assets/logo.svg" />
                 <div className={s.name}>BonBonus</div>
               </a>
               <Menu

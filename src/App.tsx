@@ -9,6 +9,7 @@ import { client, initialChain, whitelistChains } from './services/wagmi';
 import { store } from './store/store'
 
 import 'react-toastify/dist/ReactToastify.css';
+import 'normalize.css';
 
 export const App = () => {
   return (

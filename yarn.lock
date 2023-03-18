@@ -85,6 +85,16 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
+"@bonbonus/bonbonus-protocol@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@bonbonus/bonbonus-protocol/-/bonbonus-protocol-0.0.7.tgz#5fbadaa346acde870a13eb33207a4d3561131d16"
+  integrity sha512-VXCi4I5gjmEZF6r9q42Gxh4/JaLFTrLLIPBorxAO0ZivvpjJAI2U8JfqxOjJxcZ38GnIDpqp66dTqmSLJ7/Fnw==
+  dependencies:
+    "@chainlink/contracts" "^0.6.1"
+    "@openzeppelin/contracts" "^4.8.2"
+    "@openzeppelin/contracts-upgradeable" "^4.8.2"
+    dotenv "^16.0.3"
+
 "@chainlink/contracts@^0.6.1":
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/@chainlink/contracts/-/contracts-0.6.1.tgz#8842b57e755793cbdbcbc45277fb5d179c993e19"
@@ -786,16 +796,6 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@pedrouid/environment/-/environment-1.0.1.tgz#858f0f8a057340e0b250398b75ead77d6f4342ec"
   integrity sha512-HaW78NszGzRZd9SeoI3JD11JqY+lubnaOx7Pewj5pfjqWXOEATpeKIFb9Z4t2WBUK2iryiXX3lzWwmYWgUL0Ug==
-
-"@pistis-score/pistis-protocol-contracts@^0.0.23":
-  version "0.0.23"
-  resolved "https://registry.yarnpkg.com/@pistis-score/pistis-protocol-contracts/-/pistis-protocol-contracts-0.0.23.tgz#f4983acbdd2052c10420378ad36cc6e5adf9df69"
-  integrity sha512-0LNXOtFDhjiPbMNysLYllliAsddwAwxKtYBHhfnhbYn8M5FrYyNzdkUbrH8qCRLYBaqYYV0xoOh+w/rSx8WCqg==
-  dependencies:
-    "@chainlink/contracts" "^0.6.1"
-    "@openzeppelin/contracts" "^4.8.2"
-    "@openzeppelin/contracts-upgradeable" "^4.8.2"
-    dotenv "^16.0.3"
 
 "@rainbow-me/rainbowkit@^0.12.1":
   version "0.12.1"
@@ -3056,6 +3056,11 @@ normalize-path@^3.0.0, normalize-path@~3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/normalize-path/-/normalize-path-3.0.0.tgz#0dcd69ff23a1c9b11fd0978316644a0388216a65"
   integrity sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==
+
+normalize.css@^8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/normalize.css/-/normalize.css-8.0.1.tgz#9b98a208738b9cc2634caacbc42d131c97487bf3"
+  integrity sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==
 
 object-assign@^4.1.1:
   version "4.1.1"

@@ -6,7 +6,7 @@ import { Dashboard } from '../../views/Dashboard/Dashboard'
 
 import {
   CHECK_TOKEN_ROUTE_PATH,
-  DASHBOARD_ROUTE_PATH,
+  DASHBOARD_ROUTE_PATH, FAQ_ROUTE_PATH,
   ROOT_ROUTE,
 } from './routes';
 import { FAQ } from '../../views/FAQ/FAQ'
@@ -25,11 +25,7 @@ export const router = createBrowserRouter([
         element: <CheckToken />,
       },
       {
-        path: CHECK_TOKEN_ROUTE_PATH,
-        element: <FAQ />,
-      },
-      {
-        path: CHECK_TOKEN_ROUTE_PATH,
+        path: FAQ_ROUTE_PATH,
         element: <FAQ />,
       },
     ],

@@ -1,28 +1,41 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import s from './Welcome.module.scss';
 import { toast } from 'react-toastify'
 import { Button } from 'primereact/button'
 import { setTokenId } from '../../store/slices/userSlice'
 import { useDispatch } from 'react-redux'
 import { setTokenCongratsModalOpened } from '../../store/slices/appSlice'
+import { useBonBonusContract } from '../../blockchain/contracts/useBonBonusContract'
+import { useAccount } from 'wagmi'
+import { Calendar } from 'primereact/calendar'
 
 export const Welcome: FC = () => {
   const [minting, setMinting] = useState(false)
+  const [dateOfBirth, setDateOfBirth] = useState<any>()
+  const { address } = useAccount();
+  const { mint, getToken } = useBonBonusContract();
 
   const dispatch = useDispatch()
   const mintHandler = async () => {
+    if (!address) {
+      return
+    }
     try {
       setMinting(true)
-
-      setTimeout(() => {
-        setMinting(false)
-        dispatch(setTokenId(1))
-        dispatch(setTokenCongratsModalOpened(true))
-      }, 2000)
+      await mint(address, new Date(dateOfBirth).getTime() / 1000)
+      const tokenId = await getToken(address)
+      console.log(tokenId)
+      setMinting(false)
+      dispatch(setTokenId(1))
+      dispatch(setTokenCongratsModalOpened(true))
     } catch (e: any) {
       toast.error('some fucking error...')
     }
   }
+
+  useEffect(() => {
+    console.log(dateOfBirth)
+  }, [dateOfBirth])
   return (
     <div>
       <div className={s.text}>
@@ -45,8 +58,13 @@ export const Welcome: FC = () => {
           Take a step towards bigger savings and start using BonBonus today!
         </p>
       </div>
-      <Button icon="pi pi-check" label="Mint your BonBon token" loading={minting} onClick={mintHandler}
-              className={s.mintButton} />
+      <div className={s.controls}>
+        <Calendar placeholder="Choose your date of birth" value={dateOfBirth} onChange={(e: any) => setDateOfBirth(e.target.value)} />
+        <Button disabled={!dateOfBirth} icon="pi pi-check" label="Mint your BonBon token" loading={minting}
+                onClick={mintHandler}
+                className={s.mintButton} />
+      </div>
+
     </div>
   );
 };

@@ -9,8 +9,10 @@ import { ProgressSpinner } from 'primereact/progressspinner'
 
 export const CheckToken: React.FC = () => {
   const token = window.location.pathname.split('customer-points/')[1];
-  const [noAccessState, setNoAccessState] = useState<boolean | null>(null);
-  const [noToken, setNoToken] = useState<boolean | null>(null);
+  const noToken = false;
+  const noAccessState = false;
+  // const [noAccessState, setNoAccessState] = useState<boolean | null>(null);
+  // const [noToken, setNoToken] = useState<boolean | null>(null);
   const [userPoints, setUserPoints] = useState<number>(0);
   const [nodeName, setNodeName] = useState<string>('');
   const [inputValue, setInputValue] = useState<number>(0);
@@ -27,23 +29,23 @@ export const CheckToken: React.FC = () => {
   };
   useEffect(() => {
     const getLoyaltyPrograms = async () => {
-      try {
-        const token = window.location.pathname.split('customer-points/')[1];
-        const res = await userApi.getUserLoyaltyPoints(Number(token));
-        setUserPoints(res.data.points ?? 0);
-        setNodeName(res.data.nodeName ?? '');
-        setNoAccessState(false);
-        setNoToken(false);
-      } catch (e: any) {
-        if (e.response.status === 404) {
-          setNoToken(true);
-          setNoAccessState(false);
-        }
-        if (e.response.status === 403) {
-          setNoToken(false);
-          setNoAccessState(true);
-        }
-      }
+      // try {
+      //   const token = window.location.pathname.split('customer-points/')[1];
+      //   const res = await userApi.getUserLoyaltyPoints(Number(token));
+      //   setUserPoints(res.data.points ?? 0);
+      //   setNodeName(res.data.nodeName ?? '');
+      //   setNoAccessState(false);
+      //   setNoToken(false);
+      // } catch (e: any) {
+      //   if (e.response.status === 404) {
+      //     setNoToken(true);
+      //     setNoAccessState(false);
+      //   }
+      //   if (e.response.status === 403) {
+      //     setNoToken(false);
+      //     setNoAccessState(true);
+      //   }
+      // }
     };
     if (token) {
       getLoyaltyPrograms();
@@ -89,9 +91,9 @@ export const CheckToken: React.FC = () => {
             </div>
           </div>
         </>
-      ) : noToken === true ? (
+      ) : noToken ? (
         <>It seems that such a token does not exist.</>
-      ) : noAccessState === true ? (
+      ) : noAccessState ? (
         <> It seems that you do not have access rights to view this page</>
       ) : (
         <span className={s.noAccessText}>

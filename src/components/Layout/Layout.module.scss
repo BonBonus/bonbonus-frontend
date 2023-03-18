@@ -1,0 +1,123 @@
+@use 'src/assets/styles/mixins' as *;
+
+.bg {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-image: url('src/images/bg.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  overflow: auto;
+
+  .layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 48px;
+    box-sizing: border-box;
+
+    @include tablet-down {
+      padding: 48px 32px;
+    }
+    @include phone-only {
+      padding: 48px 24px;
+    }
+
+    .header {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+
+      @include phone-only {
+        justify-content: space-between;
+      }
+
+      .homeLink {
+        display: flex;
+        align-items: center;
+
+        .logo {
+          width: 28px;
+          height: 28px;
+        }
+
+        .name {
+          font-weight: 900;
+          font-size: 26px;
+          line-height: 31px;
+          margin-left: 12px;
+        }
+
+        + div {
+          display: flex!important;
+          align-items: center!important;
+        }
+
+        @include phone-only {
+          order: 1;
+          margin-left: 20px;
+        }
+      }
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 28px;
+      grid-area: title;
+
+      @include phone-only {
+        justify-content: center;
+        text-align: center;
+      }
+    }
+
+    .profile {
+      @include phone-only {
+        display: none;
+      }
+    }
+
+    .navigation {
+      grid-area: nav;
+      display: flex;
+
+      @include phone-only {
+        display: none;
+      }
+    }
+
+    .content {
+      display: flex;
+      margin-top: 4rem;
+    }
+  }
+}
+
+.burgerMenu {
+  display: none!important;
+  flex-direction: column!important;
+  align-items: flex-start !important;
+
+  nav ul div {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  @include phone-only {
+    display: flex!important;
+  }
+}
+
+.connectContainer {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}

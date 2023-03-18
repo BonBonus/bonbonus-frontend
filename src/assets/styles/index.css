@@ -1,0 +1,19 @@
+.comingSoonPatch {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+}
+
+.blurLayer {
+  filter: blur(8px) brightness(0.5);
+  width: 100%;
+  pointer-events: none;
+  user-select: none;
+}

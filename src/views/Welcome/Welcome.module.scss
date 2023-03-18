@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.mintButton {
+  background: orange;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px
+}

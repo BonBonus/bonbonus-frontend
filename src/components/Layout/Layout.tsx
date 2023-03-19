@@ -13,6 +13,7 @@ import { setTokenCongratsModalOpened } from '../../store/slices/appSlice'
 import { useBonBonusContract } from '../../blockchain/contracts/useBonBonusContract'
 import { setTokenId } from '../../store/slices/userSlice'
 import { ProgressSpinner } from 'primereact/progressspinner'
+import logoIcon from '@assets/logo.svg'
 
 export const Layout: FC = () => {
   const { address, isConnected } = useAccount();
@@ -47,7 +48,7 @@ export const Layout: FC = () => {
         {isConnected ? fetching === false ? token !== null ? <>
           <header className={s.header}>
             <a href="/" className={s.homeLink}>
-              <img src="/src/assets/logo.svg" />
+              <img src={logoIcon} />
               <div className={s.name}>BonBonus</div>
             </a>
             <div className={s.profile}>

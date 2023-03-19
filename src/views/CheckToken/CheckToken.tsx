@@ -23,7 +23,7 @@ export const CheckToken: FC = () => {
   const [localRatingHistory, setLocalRatingHistory] = useState<any>(undefined)
 
   const [isBusiness, setIsBusiness] = useState<boolean | undefined>(undefined)
-  const [businessId, setBusinessId] = useState<number | undefined>(undefined)
+  const [businessId, setBusinessId] = useState<any>()
 
   const [updatingRating, setUpdatingRating] = useState(false)
   const [isLoyaltyUpdate, setIsLoyaltyUpdate] = useState(false)
@@ -61,13 +61,14 @@ export const CheckToken: FC = () => {
   }, [token, address]);
 
   useEffect(() => {
-    if (isBusiness && token && businessId) {
+    if (isBusiness !== null && token !== null && businessId !== undefined) {
       const getInfoUser = async () => {
         const userLocalRatingRes = await getTokenProviderFinalRating(Number(token), businessId)
         const loyaltyPointsRes = await getTokenProviderLoyaltyPoints(Number(token), businessId)
         const localRatingHistoryRes = await getTokenProviderRatings(Number(token), businessId)
         setLocalRatingHistory(localRatingHistoryRes);
         setUserLocalRating(Number(userLocalRatingRes))
+        console.log(loyaltyPointsRes)
         setUserLoyaltyPoints(Number(loyaltyPointsRes))
       }
       getInfoUser()
@@ -77,7 +78,7 @@ export const CheckToken: FC = () => {
   const saveRatingHandle = async () => {
     setUpdatingRating(true)
     try {
-      if (!token || !businessId || !userNewRating) {
+      if (token === null || businessId === null || userNewRating === undefined) {
         return
       }
       await updateTokenRating(Number(token), businessId, userNewRating)
@@ -91,7 +92,7 @@ export const CheckToken: FC = () => {
   }
 
   const updateTokenLoyaltyPoints = async () => {
-    if (!token || !businessId || !newUserLoyaltyPoints) {
+    if (token === null || businessId === null || newUserLoyaltyPoints === undefined) {
       return
     }
 

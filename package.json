@@ -10,11 +10,12 @@
   },
   "dependencies": {
     "@bonbonus/bonbonus-protocol": "^0.0.11",
-    "@rainbow-me/rainbowkit": "^0.12.1",
+    "@rainbow-me/rainbowkit": "^0.8.1",
     "@reduxjs/toolkit": "^1.9.3",
     "@types/react-modal": "^3.13.1",
     "chart.js": "^4.2.1",
     "classnames": "^2.3.2",
+    "ethers": "5.7.2",
     "normalize.css": "^8.0.1",
     "primeicons": "^6.0.1",
     "primereact": "^9.2.1",
@@ -28,7 +29,7 @@
     "react-toastify": "^9.1.1",
     "sass": "^1.59.3",
     "usehooks-ts": "^2.9.1",
-    "wagmi": "^0.12.2"
+    "wagmi": "^0.10.10"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

@@ -17,10 +17,10 @@ export const whitelistChains = [bscTestnet];
 
 const { provider, chains, webSocketProvider } = configureChains(whitelistChains, [
   jsonRpcProvider({
-    rpc: (chain) => {
-      return { http: chain.rpcUrls.default.http[0] };
+    rpc: () => {
+      return { http: 'https://data-seed-prebsc-1-s1.binance.org:8545/' };
     },
-  }),
+  })
 ]);
 
 // Rainbowkit connectors list

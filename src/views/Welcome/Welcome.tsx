@@ -28,7 +28,7 @@ export const Welcome: FC = () => {
       dispatch(setTokenId(1))
       dispatch(setTokenCongratsModalOpened(true))
     } catch (e: any) {
-      toast.error('some fucking error...')
+      toast.error('Some unexpected error...')
     }
   }
 

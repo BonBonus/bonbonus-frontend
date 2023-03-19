@@ -1,7 +1,7 @@
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { darkTheme, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { lightTheme, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { WagmiConfig } from 'wagmi';
 
 import { router } from './services/router';
@@ -16,7 +16,7 @@ export const App = () => {
       <Provider store={store()}>
         <WagmiConfig client={client}>
           <RainbowKitProvider
-            theme={darkTheme()}
+            theme={lightTheme()}
             chains={whitelistChains}
             initialChain={initialChain}
             appInfo={{ appName: 'BonBonus App' }}

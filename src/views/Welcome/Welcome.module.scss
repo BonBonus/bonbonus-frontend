@@ -10,7 +10,11 @@
   margin-top: .5rem !important;
 }
 
-.text {
+.ratingImage {
+  max-width: 500px
+}
+
+.content {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px

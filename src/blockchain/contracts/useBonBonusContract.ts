@@ -6,7 +6,6 @@ import { useProvider, useSigner } from 'wagmi';
 
 export const BON_BONUS_CONTRACT_ADDRESS = import.meta.env.VITE_BONBONUS_CONTRACT_ADDRESS;
 
-console.log(import.meta.env.REACT_APP_BONBONUS_CONTRACT_ADDRESS)
 export const useBonBonusContract = () => {
   const { data: signer } = useSigner();
   const provider = useProvider();
@@ -45,6 +44,10 @@ export const useBonBonusContract = () => {
     return await updateResult.wait();
   };
 
+  const getTokenProviderRatings = async (tokenId: number, provider: number) => {
+    return await contract.getTokenProviderRatings(tokenId, provider);
+  };
+
   return {
     mint,
     getToken,
@@ -52,6 +55,7 @@ export const useBonBonusContract = () => {
     getAddressProviders,
     getTokenProviderFinalRating,
     getTokenProviderLoyaltyPoints,
-    updateTokenLoyaltyPointsByProvider
+    updateTokenLoyaltyPointsByProvider,
+    getTokenProviderRatings
   };
 };

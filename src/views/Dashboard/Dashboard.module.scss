@@ -79,12 +79,27 @@
   z-index: -1;
 }
 
-.opportunityText {
-  margin-top: 1rem;
+.tokenImageContainer {
   display: flex;
-  font-size: 22px;
-  max-width: 424px;
-  line-height: 140%;
-  color: #3c3c3c;
-  font-weight: 600;
+  position: relative;
+}
+
+.tokenImage {
+  width: 100px;
+  margin-top: 30px;
+  border-radius: 11px;
+  cursor: pointer;
+}
+
+.checkOnOpenseaLink {
+  position: absolute;
+  bottom: 5px;
+  left: 120px;
+  color: #6366f1;
+  cursor: pointer;
+
+  &:hover {
+    transition: .3s ease-in-out;
+    text-decoration: underline;
+  }
 }

@@ -24,7 +24,6 @@ export const Welcome: FC = () => {
       setMinting(true)
       await mint(address, new Date(dateOfBirth).getTime() / 1000)
       const tokenId = await getToken(address)
-      console.log(tokenId)
       setMinting(false)
       dispatch(setTokenId(1))
       dispatch(setTokenCongratsModalOpened(true))

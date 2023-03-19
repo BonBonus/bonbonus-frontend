@@ -34,7 +34,6 @@ export const Dashboard: FC = () => {
       if (token) {
         const res = await tokens(Number(token));
         setUserGlobalRating(Number(res.globalRating))
-        console.log(res)
       }
     }
     if (address) {
@@ -49,15 +48,16 @@ export const Dashboard: FC = () => {
           <div className={s.title}>Hello, token #1</div>
           <div className={s.description}>here is your current rating</div>
         </div>
-        <UserRating setRating={setUserGlobalRating} rating={(userGlobalRating! / 100) ?? undefined} withUpdate={false} />
+        <UserRating setRating={setUserGlobalRating} rating={(userGlobalRating! / 100) ?? undefined}
+                    withUpdate={false} />
         <span>
           *5-star rating based on your history
         </span>
-        <span className={s.opportunityText}>
-          You can share your token id to various businesses.
-          It will allow you:
-        </span>
-        <TextSwitcher texts={mockFeatures} />
+        <div className={s.tokenImageContainer}>
+          <img className={s.tokenImage} src={`${import.meta.env.VITE_API_DOMAIN}/render/token/${token}`} />
+          <TextSwitcher texts={mockFeatures} />
+          <span className={s.checkOnOpenseaLink}>Check on Opensea</span>
+        </div>
       </div>
       <div className={s.rightPull}>
         <div className={s.rightPull}>
@@ -67,16 +67,16 @@ export const Dashboard: FC = () => {
               Copy
             </span>
             <QRCode size={isLaptop ? undefined : 400}
-              logoPadding={6}
-              logoPaddingStyle={'square'}
-              logoImage={`${backend.defaults.baseURL}/render/token/${token}`}
-              value={`${'app.quvet.com'
-                }/customer-points/${token}`}
+                    logoPadding={6}
+                    logoPaddingStyle={'square'}
+                    logoImage={`${backend.defaults.baseURL}/render/token/${token}`}
+                    value={`${'bonbonus-frontend.pages.dev'
+                    }/customer/${token}`}
             />
             <span className={s.startBusinessLink}
-              onClick={() => setBusinessApplicationModalOpened(true)}>Want to start your own business with BonBonus? </span>
+                  onClick={() => setBusinessApplicationModalOpened(true)}>Want to start your own business with BonBonus? </span>
             <Dialog style={{ width: '50vw' }} onHide={() => setBusinessApplicationModalOpened(false)}
-              visible={businessApplicationModalOpened}>
+                    visible={businessApplicationModalOpened}>
               <p className="m-0">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                 dolore
@@ -89,7 +89,7 @@ export const Dashboard: FC = () => {
               </p>
               <div className={s.modalFooter}>
                 <Button className={s.modalButton} disabled={buttonDisabled} label="Send a request"
-                  onClick={() => setButtonDisabled(true)} />
+                        onClick={() => setButtonDisabled(true)} />
                 {buttonDisabled && <span className={s.checkingText}>Please wait for checking your request...</span>}
               </div>
             </Dialog>

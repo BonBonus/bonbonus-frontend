@@ -8,6 +8,7 @@ import { Button } from 'primereact/button'
 import { toast } from 'react-toastify'
 import { useBonBonusContract } from '../../blockchain/contracts/useBonBonusContract'
 import { useCalculateTokenRatingContract } from '../../blockchain/contracts/useCalculateTokenRatingContract'
+import { LineDemo } from '../../components/Chart/Chart'
 
 export const CheckToken: FC = () => {
   const token = window.location.pathname.split('customer/')[1];
@@ -18,6 +19,9 @@ export const CheckToken: FC = () => {
   const [newUserLoyaltyPoints, setNewUserLoyaltyPoints] = useState<number | undefined>(undefined)
   const [userLocalRating, setUserLocalRating] = useState<number | undefined>(undefined)
   const [userGlobalRating, setUserGlobalRating] = useState<number | undefined>(undefined)
+
+  const [localRatingHistory, setLocalRatingHistory] = useState<any>(undefined)
+
   const [isBusiness, setIsBusiness] = useState<boolean | undefined>(undefined)
   const [businessId, setBusinessId] = useState<number | undefined>(undefined)
 
@@ -30,7 +34,8 @@ export const CheckToken: FC = () => {
     getAddressProviders,
     getTokenProviderFinalRating,
     getTokenProviderLoyaltyPoints,
-    updateTokenLoyaltyPointsByProvider
+    updateTokenLoyaltyPointsByProvider,
+    getTokenProviderRatings
   } = useBonBonusContract()
 
   const { updateTokenRating } = useCalculateTokenRatingContract()
@@ -41,7 +46,6 @@ export const CheckToken: FC = () => {
         const res = await tokens(Number(token));
         setTokenExist(res.exists)
         setUserGlobalRating(Number(res.globalRating))
-        console.log(res)
       }
     }
     const checkIfBusiness = async () => {
@@ -59,10 +63,12 @@ export const CheckToken: FC = () => {
   useEffect(() => {
     if (isBusiness && token && businessId) {
       const getInfoUser = async () => {
-        const userLocalRatingResult = await getTokenProviderFinalRating(Number(token), businessId)
-        const loyaltyPointsResult = await getTokenProviderLoyaltyPoints(Number(token), businessId)
-        setUserLocalRating(Number(userLocalRatingResult))
-        setUserLoyaltyPoints(Number(loyaltyPointsResult))
+        const userLocalRatingRes = await getTokenProviderFinalRating(Number(token), businessId)
+        const loyaltyPointsRes = await getTokenProviderLoyaltyPoints(Number(token), businessId)
+        const localRatingHistoryRes = await getTokenProviderRatings(Number(token), businessId)
+        setLocalRatingHistory(localRatingHistoryRes);
+        setUserLocalRating(Number(userLocalRatingRes))
+        setUserLoyaltyPoints(Number(loyaltyPointsRes))
       }
       getInfoUser()
     }
@@ -133,10 +139,14 @@ export const CheckToken: FC = () => {
               <UserRating setRating={setUserLocalRating} rating={(userLocalRating! / 100) ?? undefined} withUpdate={false} />
             </div>
             <div className={s.rightPullItem}>
-              <span className={s.rightPullItemTitle}> Global rating:</span>
+              <span className={s.rightPullItemTitle}>Global rating:</span>
               <UserRating setRating={setUserGlobalRating} rating={(userGlobalRating! / 100) ?? undefined} withUpdate={false} />
             </div>
+            <div className={s.rightPullItem}>
+              <span className={s.rightPullItemTitle}>Rating dynamic (local):</span>
+            </div>
           </div>
+          <LineDemo localRatingData={localRatingHistory} className={s.chart} />
         </div>
       ) : !tokenExist ? (
         <>It seems that such a token does not exist.</>

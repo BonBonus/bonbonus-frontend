@@ -18,7 +18,7 @@ export const LineDemo: FC<IRatingsInDynamicChart> = ({ localRatingData, classNam
     const ratings = localRatingData?.map((bigNumber) => bigNumber.toNumber());
 
     const data = {
-      labels: ['1', '2', '3', '4', '5', '6', '7'],
+      labels: ['Visit 1', 'Visit2', 'Visit3', 'Visit4', 'Visit5', 'Visit6', 'Visit7'],
       datasets: [
         {
           label: 'Local Rating Dynamic',

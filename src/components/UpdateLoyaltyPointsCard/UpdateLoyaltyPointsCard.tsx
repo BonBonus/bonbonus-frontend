@@ -15,12 +15,12 @@ interface IUserLoyalPoints {
 }
 
 export const UpdateLoyaltyPointsCard: FC<IUserLoyalPoints> = ({
-                                                                isUpdating,
-                                                                userLoyalPoints,
-                                                                updateTokenLoyaltyPoints,
-                                                                setNewUserLoyaltyPoints,
-                                                                className
-                                                              }) => {
+  isUpdating,
+  userLoyalPoints,
+  updateTokenLoyaltyPoints,
+  setNewUserLoyaltyPoints,
+  className
+}) => {
   const [inputValue, setInputValue] = useState<number | undefined>(undefined);
 
   const updateUserPoints = async () => {
@@ -54,10 +54,10 @@ export const UpdateLoyaltyPointsCard: FC<IUserLoyalPoints> = ({
           />
           {inputValue && inputValue !== userLoyalPoints ? (
             <span className={s.hint}>
-                    {userLoyalPoints! > inputValue
-                      ? `${Math.abs(userLoyalPoints! - inputValue)} points will be deducted`
-                      : `${Math.abs(userLoyalPoints! - inputValue)} points will be added`}
-                  </span>
+              {userLoyalPoints! > inputValue
+                ? `${Math.abs(userLoyalPoints! - inputValue)} points will be deducted`
+                : `${Math.abs(userLoyalPoints! - inputValue)} points will be added`}
+            </span>
           ) : null}
         </div>
         <Button

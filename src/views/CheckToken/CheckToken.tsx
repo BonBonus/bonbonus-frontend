@@ -112,20 +112,20 @@ export const CheckToken: FC = () => {
             </div>
             <>
               <UserRating rating={userNewRating}
-                          setRating={setUserNewRating}
-                          withUpdate />
+                setRating={setUserNewRating}
+                withUpdate />
               <Button loading={updatingRating}
-                      disabled={userNewRating === undefined}
-                      onClick={saveRatingHandle}
-                      className={s.saveBtn} icon="pi pi-check"
-                      label="Save" />
+                disabled={userNewRating === undefined}
+                onClick={saveRatingHandle}
+                className={s.saveBtn} icon="pi pi-check"
+                label="Save" />
             </>
             <UpdateLoyaltyPointsCard updateTokenLoyaltyPoints={updateTokenLoyaltyPoints}
-                                     className={s.updateScoreCard}
-                                     isUpdating={isLoyaltyUpdate}
-                                     setUserLoyalPoints={setUserLoyaltyPoints}
-                                     setNewUserLoyaltyPoints={setNewUserLoyaltyPoints}
-                                     userLoyalPoints={userLoyaltyPoints} />
+              className={s.updateScoreCard}
+              isUpdating={isLoyaltyUpdate}
+              setUserLoyalPoints={setUserLoyaltyPoints}
+              setNewUserLoyaltyPoints={setNewUserLoyaltyPoints}
+              userLoyalPoints={userLoyaltyPoints} />
           </div>
           <div className={s.rightPull}>
             <div className={s.rightPullItem}>

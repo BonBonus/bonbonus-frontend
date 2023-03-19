@@ -26,6 +26,7 @@
     @include tablet-down {
       padding: 48px 48px;
     }
+
     @include phone-only {
       padding: 48px 36px;
     }
@@ -59,9 +60,9 @@
           color: #2e2e2e;
         }
 
-        + div {
-          display: flex!important;
-          align-items: center!important;
+        +div {
+          display: flex !important;
+          align-items: center !important;
         }
 
         @include phone-only {
@@ -112,8 +113,8 @@
 }
 
 .burgerMenu {
-  display: none!important;
-  flex-direction: column!important;
+  display: none !important;
+  flex-direction: column !important;
   align-items: flex-start !important;
 
   nav ul div {
@@ -123,7 +124,7 @@
   }
 
   @include phone-only {
-    display: flex!important;
+    display: flex !important;
   }
 }
 
@@ -134,5 +135,5 @@
 }
 
 .spinner {
-  margin: auto!important;
+  margin: auto !important;
 }

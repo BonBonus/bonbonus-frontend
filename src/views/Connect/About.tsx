@@ -16,7 +16,7 @@ export const Connect: FC<IConnect> = ({ className }) => {
           We are delighted to welcome you to our community and are ready to help you save money on your purchases.
         </p>
       </div>
-     <ConnectButton />
+      <ConnectButton />
     </div>
   );
 };

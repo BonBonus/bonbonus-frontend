@@ -61,8 +61,8 @@ export const Welcome: FC = () => {
       <div className={s.controls}>
         <Calendar placeholder="Choose your date of birth" value={dateOfBirth} onChange={(e: any) => setDateOfBirth(e.target.value)} />
         <Button disabled={!dateOfBirth} icon="pi pi-check" label="Mint your BonBon token" loading={minting}
-                onClick={mintHandler}
-                className={s.mintButton} />
+          onClick={mintHandler}
+          className={s.mintButton} />
       </div>
 
     </div>

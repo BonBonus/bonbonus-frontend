@@ -6,7 +6,7 @@ import { Counter } from '../Counter/Counter'
 
 export const UserRating: FC<IUserRating> = ({ withUpdate, setRating, rating }) => {
   const handleRatingChange = (rating: any) => {
-      setRating(rating)
+    setRating(rating)
   }
   return <div className={s.container}>
     <div className={s.rating}>

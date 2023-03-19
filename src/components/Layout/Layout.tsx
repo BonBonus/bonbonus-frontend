@@ -45,25 +45,25 @@ export const Layout: FC = () => {
     <div className={s.bg}>
       <div className={s.layout}>
         {isConnected ? fetching === false ? token !== null ? <>
-            <header className={s.header}>
-              <a href="/" className={s.homeLink}>
-                <img src="/src/assets/logo.svg" />
-                <div className={s.name}>BonBonus</div>
-              </a>
-              <div className={s.profile}>
-                <ConnectButton />
-              </div>
-            </header>
-            <main className={s.content}>
-              <Outlet />
-            </main>
-          </> : <Welcome /> : <ProgressSpinner className={s.spinner} /> :
+          <header className={s.header}>
+            <a href="/" className={s.homeLink}>
+              <img src="/src/assets/logo.svg" />
+              <div className={s.name}>BonBonus</div>
+            </a>
+            <div className={s.profile}>
+              <ConnectButton />
+            </div>
+          </header>
+          <main className={s.content}>
+            <Outlet />
+          </main>
+        </> : <Welcome /> : <ProgressSpinner className={s.spinner} /> :
           <div className={s.connectContainer}>
             <Connect />
           </div>}
       </div>
       <Dialog header="Congrats!" visible={tokenCongratsModalOpened} style={{ width: '50vw' }}
-              onHide={() => dispatch(setTokenCongratsModalOpened(false))}>
+        onHide={() => dispatch(setTokenCongratsModalOpened(false))}>
         <p className="m-0">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
           magna aliqua.

@@ -35,7 +35,7 @@ export const Dashboard: FC = () => {
   useEffect(() => {
     const getUserRating = async () => {
       if (token !== null) {
-        const res = await tokens(Number(token));
+        const res = await tokens(token);
         setUserGlobalRating(Number(res.globalRating))
       }
     }

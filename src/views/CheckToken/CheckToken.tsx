@@ -110,7 +110,7 @@ export const CheckToken: FC = () => {
 
   return (
     <>
-      {isBusiness && tokenExist ? (
+      {isBusiness === true && tokenExist === true ? (
         <div className={s.container}>
           <div className={s.leftPull}>
             <div className={s.headLeftPull}>
@@ -149,9 +149,9 @@ export const CheckToken: FC = () => {
           </div>
           <LineDemo localRatingData={localRatingHistory} className={s.chart} />
         </div>
-      ) : !tokenExist ? (
+      ) : tokenExist === false ? (
         <>It seems that such a token does not exist.</>
-      ) : !isBusiness ? (
+      ) : isBusiness === false ? (
         <> It seems that you do not have access rights to view this page</>
       ) : (
         <span className={s.noAccessText}>

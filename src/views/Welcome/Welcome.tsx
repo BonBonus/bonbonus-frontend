@@ -25,10 +25,10 @@ export const Welcome: FC = () => {
       await mint(address, new Date(dateOfBirth).getTime() / 1000)
       const tokenId = await getToken(address)
       setMinting(false)
-      dispatch(setTokenId(1))
+      dispatch(setTokenId(Number(tokenId)))
       dispatch(setTokenCongratsModalOpened(true))
     } catch (e: any) {
-      toast.error('some fucking error...')
+      toast.error('Unexpected error')
     }
   }
 

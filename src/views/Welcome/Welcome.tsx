@@ -14,7 +14,7 @@ export const Welcome: FC = () => {
   const [minting, setMinting] = useState(false)
   const [dateOfBirth, setDateOfBirth] = useState<any>()
   const { address } = useAccount();
-  const { mint } = useBonBonusContract();
+  const { mint, getToken } = useBonBonusContract();
 
   const dispatch = useDispatch()
   const mintHandler = async () => {
@@ -25,16 +25,14 @@ export const Welcome: FC = () => {
       setMinting(true)
       await mint(address, new Date(dateOfBirth).getTime() / 1000)
       setMinting(false)
-      dispatch(setTokenId(1))
+      location.pathname = '/'
+      const tokenId = await getToken(address)
+      dispatch(setTokenId(Number(tokenId)))
       dispatch(setTokenCongratsModalOpened(true))
     } catch (e: any) {
-      toast.error('Some unexpected error...')
+      toast.error('Unexpected error')
     }
   }
-
-  useEffect(() => {
-    console.log(dateOfBirth)
-  }, [dateOfBirth])
   return (
     <div>
       <div className={s.content}>

@@ -1,9 +1,15 @@
+@use 'src/assets/styles/mixins' as *;
+
 .container {
   display: flex;
   flex-direction: column;
   border: 1px solid #e0e0e0;
   padding: 20px;
   border-radius: 10px;
+
+  @include phone-only {
+    margin-bottom: 3rem;
+  }
 
   &:hover {
     transition: .3s ease-in-out;

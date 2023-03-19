@@ -1,35 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Provider } from 'react-redux';
+import { RouterProvider } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import { lightTheme, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { WagmiConfig } from 'wagmi';
 
-function App() {
-  const [count, setCount] = useState(0)
+import { router } from './services/router';
+import { client, initialChain, whitelistChains } from './services/wagmi';
+import { store } from './store/store'
 
+import 'react-toastify/dist/ReactToastify.css';
+import 'normalize.css';
+
+export const App = () => {
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
-}
-
-export default App
+      <Provider store={store()}>
+        <WagmiConfig client={client}>
+          <RainbowKitProvider
+            theme={lightTheme()}
+            chains={whitelistChains}
+            initialChain={initialChain}
+            appInfo={{ appName: 'BonBonus App' }}
+          >
+            <RouterProvider router={router} />
+            <ToastContainer theme="light" />
+          </RainbowKitProvider>
+        </WagmiConfig>
+      </Provider>
+  );
+};

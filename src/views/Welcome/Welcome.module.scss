@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.mintButton {
+  background: orange;
+  margin-top: .5rem !important;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+}

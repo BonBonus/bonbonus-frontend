@@ -1,0 +1,139 @@
+@use 'src/assets/styles/mixins' as *;
+
+.bg {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-image: url('src/images/bg.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  overflow: auto;
+
+  .layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 48px;
+    box-sizing: border-box;
+
+    @include desktop-up {
+      padding: 48px 64px;
+    }
+
+    @include tablet-down {
+      padding: 48px 48px;
+    }
+
+    @include phone-only {
+      padding: 48px 36px;
+    }
+
+    .header {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+
+      @include phone-only {
+        justify-content: space-between;
+        flex-direction: column-reverse;
+        gap: 20px;
+      }
+
+      .homeLink {
+        display: flex;
+        align-items: center;
+
+        .logo {
+          width: 28px;
+          height: 28px;
+        }
+
+        .name {
+          font-weight: 900;
+          font-size: 26px;
+          line-height: 31px;
+          margin-left: 12px;
+          color: #2e2e2e;
+        }
+
+        +div {
+          display: flex !important;
+          align-items: center !important;
+        }
+
+        @include phone-only {
+          order: 1;
+        }
+      }
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 28px;
+      grid-area: title;
+
+      @include phone-only {
+        justify-content: center;
+        text-align: center;
+      }
+    }
+
+    .profile {
+      @include phone-only {
+        display: none;
+      }
+    }
+
+    .navigation {
+      grid-area: nav;
+      display: flex;
+
+      @include phone-only {
+        display: none;
+      }
+    }
+
+    .content {
+      padding: 0 60px;
+      display: flex;
+      margin-top: 4rem;
+
+      @include phone-only {
+        padding: 0;
+      }
+    }
+  }
+}
+
+.burgerMenu {
+  display: none !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+
+  nav ul div {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  @include phone-only {
+    display: flex !important;
+  }
+}
+
+.connectContainer {
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.spinner {
+  margin: auto !important;
+}

@@ -1,0 +1,31 @@
+.counter {
+  display: flex;
+  flex-direction: column;
+  font-size: 98px;
+  font-weight: bold;
+  color: #2e2e2e;
+  margin-top: 22px;
+}
+
+.counter__value {
+  animation: count-up 1s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.counter__label {
+  font-size: 24px;
+  color: #999;
+  margin-top: 10px;
+}
+
+@keyframes count-up {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

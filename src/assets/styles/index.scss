@@ -1,0 +1,82 @@
+@use 'src/assets/styles/mixins' as *;
+@use './src/assets/styles/burger-menu';
+
+body {
+  margin: 0;
+  background: #ffffff;
+  color: black;
+  font-family: sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+#react-qrcode-logo {
+  padding: 10px;
+  border: 2px solid #6366f1;
+  border-radius: 10px;
+}
+
+.p-rating-icon {
+  font-size: 50px !important;
+}
+
+.p-rating {
+  margin: 18px 0;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  user-select: none;
+}
+
+h1 {
+  font-size: 32px;
+  margin: 0 0 24px 0;
+}
+
+h2 {
+  font-size: 24px;
+  margin: 32px 0 16px 0;
+
+  &:first-of-type {
+    margin: 0 0 16px 0;
+  }
+}
+
+p {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
+  backdrop-filter: brightness(0.5) blur(5px);
+  background-color: transparent !important;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+#__react-alert__ div div div {
+  width: auto !important;
+  max-width: 700px;
+  margin: 0 !important;
+  margin-bottom: 20px !important;
+  margin-top: 50px !important;
+}
+
+.bm-burger-button {
+  display: none;
+
+  @include phone-only {
+    display: inherit;
+  }
+}

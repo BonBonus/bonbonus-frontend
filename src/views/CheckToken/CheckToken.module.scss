@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.rightPullItem {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px
+}
+
+.title {
+  line-height: 130%;
+  font-size: 48px;
+}
+
+.description {
+  margin-top: 24px;
+  font-size: 28px;
+  line-height: 130%;
+}
+
+.headLeftPull {
+  margin-bottom: 20px;
+}
+
+.rightPullItemTitle {
+  font-size: 22px;
+  font-weight: 200;
+}
+
+.updateScoreCard {
+  margin-top: 2rem;
+}
+
+.saveBtn {
+  margin-top: 1rem !important;
+}
+.chart {
+  margin-top: 4rem;
+  width: 100%
+}

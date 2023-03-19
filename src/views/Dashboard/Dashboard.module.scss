@@ -1,0 +1,105 @@
+@use 'src/assets/styles/mixins' as *;
+
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+
+  @include tablet-down {
+    flex-direction: column;
+  }
+}
+
+.title {
+  line-height: 130%;
+  font-size: 48px;
+}
+
+.description {
+  margin-top: 24px;
+  font-size: 28px;
+  line-height: 130%;
+}
+
+.headLeftPull {
+  margin-bottom: 20px;
+}
+
+.qrContainer {
+  display: flex;
+  flex-direction: column;
+
+  @include tablet-down {
+    margin-top: 1rem;
+  }
+}
+
+.copy {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.modalFooter {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem
+}
+
+.checkingText {
+  margin-top: 10px;
+}
+
+.startBusinessLink {
+  cursor: pointer;
+  color: #a6a6a6;
+  text-decoration-line: underline;
+  transition: .2s ease-in-out;
+  margin-top: 0.5rem;
+
+  &:hover {
+    color: gray;
+  }
+}
+
+
+.coloredCircle {
+  position: absolute;
+  bottom: 0;
+  right: -200px;
+  z-index: -1;
+}
+
+.yellowCircle {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: -1;
+}
+
+.tokenImageContainer {
+  display: flex;
+  position: relative;
+}
+
+.tokenImage {
+  width: 100px;
+  margin-top: 30px;
+  border-radius: 11px;
+  cursor: pointer;
+}
+
+.checkOnOpenseaLink {
+  position: absolute;
+  bottom: 5px;
+  left: 120px;
+  color: #6366f1;
+  cursor: pointer;
+
+  &:hover {
+    transition: .3s ease-in-out;
+    text-decoration: underline;
+  }
+}

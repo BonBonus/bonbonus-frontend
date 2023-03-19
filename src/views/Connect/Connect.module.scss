@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: auto
+}
+
+.text {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  max-width: 600px;
+}

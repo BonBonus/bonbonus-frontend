@@ -13,6 +13,9 @@ import TextSwitcher from '../../components/TextSwitcher/TextSwitcher'
 import { useAccount } from 'wagmi'
 import { useBonBonusContract } from '../../blockchain/contracts/useBonBonusContract'
 import { mockFeatures } from '../../components/TextSwitcher/TextSwitcher.constants'
+import copyImage from '@assets/copy.svg';
+import coloredCircleImage from '@assets/coloredCircle.png';
+import yellowCircleImage from '@assets/yellowCircle.png';
 
 export const Dashboard: FC = () => {
   const { token } = useSelector((state: RootState) => state.user);
@@ -63,7 +66,7 @@ export const Dashboard: FC = () => {
         <div className={s.rightPull}>
           <div className={s.qrContainer}>
             <span onClick={copyHandler} className={s.copy}>
-              <img src="/src/assets/copy.svg" />
+              <img src={copyImage}/>
               Copy
             </span>
             <QRCode size={isLaptop ? undefined : 400}
@@ -96,8 +99,8 @@ export const Dashboard: FC = () => {
           </div>
         </div>
       </div>
-      <img className={s.coloredCircle} src="/src/assets/coloredCircle.png" />
-      <img className={s.yellowCircle} src="/src/assets/yellowCircle.png" />
+      <img className={s.coloredCircle} src={coloredCircleImage} />
+      <img className={s.yellowCircle} src={yellowCircleImage} />
     </div>
   );
 };

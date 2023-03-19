@@ -11,10 +11,11 @@ import { Dialog } from 'primereact/dialog'
 import { Button } from 'primereact/button'
 import TextSwitcher from '../../components/TextSwitcher/TextSwitcher'
 import { useAccount } from 'wagmi'
-import { useBonBonusContract } from '../../blockchain/contracts/useBonBonusContract'
+import { BON_BONUS_CONTRACT_ADDRESS, useBonBonusContract } from '../../blockchain/contracts/useBonBonusContract'
 import { mockFeatures } from '../../components/TextSwitcher/TextSwitcher.constants'
 import coloredCircleImage from '@assets/coloredCircle.png';
 import yellowCircleImage from '@assets/yellowCircle.png';
+import copyImage from '@assets/copy.svg';
 
 export const Dashboard: FC = () => {
   const { token } = useSelector((state: RootState) => state.user);
@@ -58,14 +59,16 @@ export const Dashboard: FC = () => {
         <div className={s.tokenImageContainer}>
           <img className={s.tokenImage} src={`${import.meta.env.VITE_API_DOMAIN}/render/token/${token}`} />
           <TextSwitcher texts={mockFeatures} />
-          <span className={s.checkOnOpenseaLink}>Check on Opensea</span>
+          <a target="_blank"
+             href={`https://testnets.opensea.io/assets/bsc-testnet/${BON_BONUS_CONTRACT_ADDRESS}/${token}`}
+             className={s.checkOnOpenseaLink}>Check on Opensea</a>
         </div>
       </div>
       <div className={s.rightPull}>
         <div className={s.rightPull}>
           <div className={s.qrContainer}>
             <span onClick={copyHandler} className={s.copy}>
-              <img src={`https://dev.bonbonus-frontend.pages.dev/assets/copy.svg`}/>
+              <img src={copyImage} />
               Copy
             </span>
             <QRCode size={isLaptop ? undefined : 400}

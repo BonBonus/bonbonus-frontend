@@ -40,12 +40,18 @@ export const useBonBonusContract = () => {
     return await contract.getTokenProviderLoyaltyPoints(tokenId, provider);
   };
 
+  const updateTokenLoyaltyPointsByProvider = async (tokenId: number, provider: number, points: number) => {
+    const updateResult = await contract.updateTokenLoyaltyPointsByProvider(tokenId, provider, points);
+    return await updateResult.wait();
+  };
+
   return {
     mint,
     getToken,
     tokens,
     getAddressProviders,
     getTokenProviderFinalRating,
-    getTokenProviderLoyaltyPoints
+    getTokenProviderLoyaltyPoints,
+    updateTokenLoyaltyPointsByProvider
   };
 };

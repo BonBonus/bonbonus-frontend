@@ -1,9 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
-import { fallDown as Menu } from 'react-burger-menu';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { useUpdateEffect } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
 import s from './Layout.module.scss';
 import { Connect } from '../../views/Connect/About'
@@ -14,20 +12,16 @@ import { Dialog } from 'primereact/dialog'
 import { setTokenCongratsModalOpened } from '../../store/slices/appSlice'
 import { useBonBonusContract } from '../../blockchain/contracts/useBonBonusContract'
 import { setTokenId } from '../../store/slices/userSlice'
+import { ProgressSpinner } from 'primereact/progressspinner'
 
 export const Layout: FC = () => {
   const { address, isConnected } = useAccount();
-  const [menuOpen, setMenuOpen] = useState(false);
   const { tokenCongratsModalOpened } = useSelector((state: RootState) => state.app);
   const { token } = useSelector((state: RootState) => state.user);
-  const { mint, getToken } = useBonBonusContract();
+  const { getToken } = useBonBonusContract();
+  const [fetching, setFetching] = useState(true);
 
   const dispatch = useDispatch();
-
-  useUpdateEffect(() => {
-    document.body.style.overflow = 'hidden';
-    menuOpen ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = 'auto');
-  }, [menuOpen]);
 
   useEffect(() => {
     const checkToken = async (address: string) => {
@@ -36,7 +30,9 @@ export const Layout: FC = () => {
         dispatch(setTokenId(Number(tokenId)))
       } catch (e: any) {
         dispatch(setTokenId(null))
-        console.log('no token')
+        console.log('No token')
+      } finally {
+        setFetching(false)
       }
     }
 
@@ -48,7 +44,7 @@ export const Layout: FC = () => {
   return (
     <div className={s.bg}>
       <div className={s.layout}>
-        {isConnected ? token ? <>
+        {isConnected ? fetching === false ? token !== null ? <>
             <header className={s.header}>
               <a href="/" className={s.homeLink}>
                 <img src="/src/assets/logo.svg" />
@@ -61,7 +57,7 @@ export const Layout: FC = () => {
             <main className={s.content}>
               <Outlet />
             </main>
-          </> : <Welcome /> :
+          </> : <Welcome /> : <ProgressSpinner className={s.spinner} /> :
           <div className={s.connectContainer}>
             <Connect />
           </div>}

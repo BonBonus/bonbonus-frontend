@@ -12,14 +12,16 @@ import { Button } from 'primereact/button'
 import TextSwitcher from '../../components/TextSwitcher/TextSwitcher'
 import { useAccount } from 'wagmi'
 import { useBonBonusContract } from '../../blockchain/contracts/useBonBonusContract'
+import { mockFeatures } from '../../components/TextSwitcher/TextSwitcher.constants'
 
 export const Dashboard: FC = () => {
   const { token } = useSelector((state: RootState) => state.user);
   const [businessApplicationModalOpened, setBusinessApplicationModalOpened] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const { address } = useAccount()
-  const [rating, setRating] = useState<number | undefined>(undefined);
-  const { getToken } = useBonBonusContract()
+  const { tokens } = useBonBonusContract()
+
+  const [userGlobalRating, setUserGlobalRating] = useState<number | undefined>(undefined)
 
   const isLaptop = useMediaQuery('(max-width: 768px)')
   const copyHandler = () => {
@@ -28,14 +30,16 @@ export const Dashboard: FC = () => {
   };
 
   useEffect(() => {
-    const setTokenRating = async (address: string) => {
-      const res = await getToken(address)
-      setRating(Number(res))
+    const getUserRating = async () => {
+      if (token) {
+        const res = await tokens(Number(token));
+        setUserGlobalRating(Number(res.globalRating))
+        console.log(res)
+      }
     }
     if (address) {
-      setTokenRating(address)
+      getUserRating()
     }
-
   }, [address])
 
   return (
@@ -45,7 +49,7 @@ export const Dashboard: FC = () => {
           <div className={s.title}>Hello, token #1</div>
           <div className={s.description}>here is your current rating</div>
         </div>
-        <UserRating setRating={setRating} rating={rating} withUpdate={false} />
+        <UserRating setRating={setUserGlobalRating} rating={(userGlobalRating! / 100) ?? undefined} withUpdate={false} />
         <span>
       *5-star rating based on your history
     </span>
@@ -53,7 +57,7 @@ export const Dashboard: FC = () => {
           You can share your token id to various businesses.
           It will allow you:
         </span>
-        <TextSwitcher texts={['Case 1', 'Case 2', 'Case 3']} />
+        <TextSwitcher texts={mockFeatures} />
       </div>
       <div className={s.rightPull}>
         <div className={s.rightPull}>

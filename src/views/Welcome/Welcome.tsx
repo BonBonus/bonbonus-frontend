@@ -14,7 +14,7 @@ export const Welcome: FC = () => {
   const [minting, setMinting] = useState(false)
   const [dateOfBirth, setDateOfBirth] = useState<any>()
   const { address } = useAccount();
-  const { mint } = useBonBonusContract();
+  const { mint, getToken } = useBonBonusContract();
 
   const dispatch = useDispatch()
   const mintHandler = async () => {
@@ -26,6 +26,7 @@ export const Welcome: FC = () => {
       await mint(address, new Date(dateOfBirth).getTime() / 1000)
       setMinting(false)
       location.pathname = '/'
+      const tokenId = await getToken(address)
       dispatch(setTokenId(Number(tokenId)))
       dispatch(setTokenCongratsModalOpened(true))
     } catch (e: any) {

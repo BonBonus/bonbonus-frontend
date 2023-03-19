@@ -13,7 +13,6 @@ import TextSwitcher from '../../components/TextSwitcher/TextSwitcher'
 import { useAccount } from 'wagmi'
 import { useBonBonusContract } from '../../blockchain/contracts/useBonBonusContract'
 import { mockFeatures } from '../../components/TextSwitcher/TextSwitcher.constants'
-import copyImage from '@assets/copy.svg';
 import coloredCircleImage from '@assets/coloredCircle.png';
 import yellowCircleImage from '@assets/yellowCircle.png';
 
@@ -34,7 +33,7 @@ export const Dashboard: FC = () => {
 
   useEffect(() => {
     const getUserRating = async () => {
-      if (token) {
+      if (token !== null) {
         const res = await tokens(Number(token));
         setUserGlobalRating(Number(res.globalRating))
       }
@@ -48,7 +47,7 @@ export const Dashboard: FC = () => {
     <div className={s.container}>
       <div className={s.leftPull}>
         <div className={s.headLeftPull}>
-          <div className={s.title}>Hello, token #1</div>
+          <div className={s.title}>Hello, token #{token}</div>
           <div className={s.description}>here is your current rating</div>
         </div>
         <UserRating setRating={setUserGlobalRating} rating={(userGlobalRating! / 100) ?? undefined}
@@ -66,7 +65,7 @@ export const Dashboard: FC = () => {
         <div className={s.rightPull}>
           <div className={s.qrContainer}>
             <span onClick={copyHandler} className={s.copy}>
-              <img src={copyImage}/>
+              <img src={`${import.meta.env.VITE_API_DOMAIN}/assets/copy.svg`}/>
               Copy
             </span>
             <QRCode size={isLaptop ? undefined : 400}

@@ -110,7 +110,7 @@ export const CheckToken: FC = () => {
 
   return (
     <>
-      {isBusiness && tokenExist ? (
+      {isBusiness === true && tokenExist === true ? (
         <div className={s.container}>
           <div className={s.leftPull}>
             <div className={s.headLeftPull}>

@@ -25,16 +25,13 @@ export const Welcome: FC = () => {
       await mint(address, new Date(dateOfBirth).getTime() / 1000)
       const tokenId = await getToken(address)
       setMinting(false)
+      location.pathname = '/'
       dispatch(setTokenId(Number(tokenId)))
       dispatch(setTokenCongratsModalOpened(true))
     } catch (e: any) {
       toast.error('Unexpected error')
     }
   }
-
-  useEffect(() => {
-    console.log(dateOfBirth)
-  }, [dateOfBirth])
   return (
     <div>
       <div className={s.text}>

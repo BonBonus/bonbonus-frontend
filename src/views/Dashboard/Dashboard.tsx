@@ -65,7 +65,7 @@ export const Dashboard: FC = () => {
         <div className={s.rightPull}>
           <div className={s.qrContainer}>
             <span onClick={copyHandler} className={s.copy}>
-              <img src={`${import.meta.env.VITE_API_DOMAIN}/assets/copy.svg`}/>
+              <img src={`https://dev.bonbonus-frontend.pages.dev/assets/copy.svg`}/>
               Copy
             </span>
             <QRCode size={isLaptop ? undefined : 400}

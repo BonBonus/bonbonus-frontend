@@ -28,7 +28,7 @@ export const Dashboard: FC = () => {
 
   const isLaptop = useMediaQuery('(max-width: 768px)')
   const copyHandler = () => {
-    navigator.clipboard.writeText(`https://app.pistis.network/customer-points/${token}`);
+    navigator.clipboard.writeText(`https://bonbonus-frontend.pages.dev/customer/${token}`);
     toast.success('Copied!');
   };
 
@@ -75,8 +75,7 @@ export const Dashboard: FC = () => {
                     logoPadding={6}
                     logoPaddingStyle={'square'}
                     logoImage={`${backend.defaults.baseURL}/render/token/${token}`}
-                    value={`${'bonbonus-frontend.pages.dev'
-                    }/customer/${token}`}
+                    value={`https://bonbonus-frontend.pages.dev/customer/${token}`}
             />
             <span className={s.startBusinessLink}
                   onClick={() => setBusinessApplicationModalOpened(true)}>Want to start your own business with BonBonus? </span>

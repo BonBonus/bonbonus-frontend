@@ -1,45 +1,42 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
-
+import React, { FC, useEffect, useState } from 'react';
 import s from './Dashboard.module.scss';
 import { useSelector } from 'react-redux'
 import { RootState } from '../../store/store'
-import { useAccount } from 'wagmi'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
-import { useMediaQuery, useOnClickOutside } from 'usehooks-ts'
+import { useMediaQuery } from 'usehooks-ts'
 import { toast } from 'react-toastify'
 import { QRCode } from 'react-qrcode-logo'
 import { backend } from '../../api/configs/axios'
 import { UserRating } from '../../components/UserRating/UserRating'
-import { ZIndexUtils } from 'primereact/utils'
 import { Dialog } from 'primereact/dialog'
-import { setTokenCongratsModalOpened } from '../../store/slices/appSlice'
 import { Button } from 'primereact/button'
 import TextSwitcher from '../../components/TextSwitcher/TextSwitcher'
+import { useAccount } from 'wagmi'
+import { useBonBonusContract } from '../../blockchain/contracts/useBonBonusContract'
 
 export const Dashboard: FC = () => {
   const { token } = useSelector((state: RootState) => state.user);
-  const [qrOpened, setQrOpened] = useState(false);
   const [businessApplicationModalOpened, setBusinessApplicationModalOpened] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
-  const [fetching, setFetching] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const [rating, setRating] = useState<number | undefined>(4.3);
+  const { address } = useAccount()
+  const [rating, setRating] = useState<number | undefined>(undefined);
+  const { getToken } = useBonBonusContract()
+
   const isLaptop = useMediaQuery('(max-width: 768px)')
-
-  const ref = useRef<HTMLDivElement>(null);
-  const { isConnected, address } = useAccount();
-  const { openConnectModal } = useConnectModal();
-
-  useOnClickOutside(ref, () => setQrOpened(false));
-
   const copyHandler = () => {
     navigator.clipboard.writeText(`https://app.pistis.network/customer-points/${token}`);
     toast.success('Copied!');
   };
 
   useEffect(() => {
-    setRating(4.5)
-  }, [])
+    const setTokenRating = async (address: string) => {
+      const res = await getToken(address)
+      setRating(Number(res))
+    }
+    if (address) {
+      setTokenRating(address)
+    }
+
+  }, [address])
 
   return (
     <div className={s.container}>
@@ -48,8 +45,15 @@ export const Dashboard: FC = () => {
           <div className={s.title}>Hello, token #1</div>
           <div className={s.description}>here is your current rating</div>
         </div>
-        <UserRating rating={rating} setRating={setRating} />
-        <TextSwitcher texts={['test1', 'test2', 'test3']}></TextSwitcher>
+        <UserRating setRating={setRating} rating={rating} withUpdate={false} />
+        <span>
+      *5-star rating based on your history
+    </span>
+        <span className={s.opportunityText}>
+          You can share your token id to various businesses.
+          It will allow you:
+        </span>
+        <TextSwitcher texts={['Case 1', 'Case 2', 'Case 3']} />
       </div>
       <div className={s.rightPull}>
         <div className={s.rightPull}>
@@ -67,7 +71,7 @@ export const Dashboard: FC = () => {
                     }/customer-points/${token}`}
             />
             <span className={s.startBusinessLink}
-              onClick={() => setBusinessApplicationModalOpened(true)}>Want to start your own business with BonBonus? </span>
+                  onClick={() => setBusinessApplicationModalOpened(true)}>Want to start your own business with BonBonus? </span>
             <Dialog style={{ width: '50vw' }} onHide={() => setBusinessApplicationModalOpened(false)}
                     visible={businessApplicationModalOpened}>
               <p className="m-0">
@@ -89,8 +93,8 @@ export const Dashboard: FC = () => {
           </div>
         </div>
       </div>
-      <img className={s.coloredCircle} src="/src/assets/coloredCircle.png"/>
-      <img className={s.yellowCircle} src="/src/assets/yellowCircle.png"/>
+      <img className={s.coloredCircle} src="/src/assets/coloredCircle.png" />
+      <img className={s.yellowCircle} src="/src/assets/yellowCircle.png" />
     </div>
   );
 };

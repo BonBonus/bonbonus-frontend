@@ -1,5 +1,7 @@
 export interface IUserRating {
-  className?: string,
   rating: number | undefined,
-  setRating: (rating: number) => void,
+  setRating: (rating: number | undefined) => void,
+  withUpdate?: boolean,
+  setCustomRating?: (rating: number) => void,
+  className?: string,
 }

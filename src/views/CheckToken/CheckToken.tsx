@@ -1,105 +1,118 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
-import { toast } from 'react-toastify';
-import { backend } from '../../api/configs/axios'
-import { userApi } from '../../api/userApi'
-
+import React, { FC, useEffect, useState } from 'react';
 import s from './CheckToken.module.scss';
-import { Button } from 'primereact/button'
 import { ProgressSpinner } from 'primereact/progressspinner'
+import { UpdateScoreCard } from '../../components/UpdateScoreCard/UpdateScoreCard'
+import { UserRating } from '../../components/UserRating/UserRating'
+import { useAccount } from 'wagmi'
+import { Button } from 'primereact/button'
+import { toast } from 'react-toastify'
+import { useBonBonusContract } from '../../blockchain/contracts/useBonBonusContract'
 
 export const CheckToken: FC = () => {
-  const token = window.location.pathname.split('customer-points/')[1];
+  const token = window.location.pathname.split('customer/')[1];
   const tokenExist = true;
+  const [updatingRating, setUpdatingRating] = useState(false)
+  const [userLoyaltyPoints, setUserLoyaltyPoints] = useState<number | undefined>(undefined)
+  const [userNewRating, setUserNewRating] = useState<number | undefined>(undefined)
+  const [userLocalRating, setUserLocalRating] = useState<number | undefined>(undefined)
+  const [userGlobalRating, setUserGlobalRating] = useState<number | undefined>(undefined)
+  const [isBusiness, setIsBusiness] = useState<boolean | undefined>(undefined)
+  const [businessId, setBusinessId] = useState<number | undefined>(undefined)
   const noAccessState = false;
+  const { address } = useAccount()
+  const { tokens, getAddressProviders, getTokenProviderFinalRating, getTokenProviderLoyaltyPoints } = useBonBonusContract()
+
   // const [noAccessState, setNoAccessState] = useState<boolean | null>(null);
   // const [noToken, setNoToken] = useState<boolean | null>(null);
-  const [userPoints, setUserPoints] = useState<number>(0);
-  const [nodeName, setNodeName] = useState<string>('');
-  const [inputValue, setInputValue] = useState<number>(0);
-  const ref = useRef<HTMLDivElement>(null);
 
-  const updateUserPoints = async () => {
-    try {
-      await userApi.setUserLoyaltyPoints(Number(token), Number(inputValue));
-      toast.success('Updated!');
-      setUserPoints(inputValue);
-    } catch (e: any) {
-      toast.error('Something went wrong. Please try again');
-    }
-  };
+  const setUserLoyalPoints = () => {
+
+  }
   useEffect(() => {
-    const getLoyaltyPrograms = async () => {
-      // try {
-      //   const token = window.location.pathname.split('customer-points/')[1];
-      //   const res = await userApi.getUserLoyaltyPoints(Number(token));
-      //   setUserPoints(res.data.points ?? 0);
-      //   setNodeName(res.data.nodeName ?? '');
-      //   setNoAccessState(false);
-      //   setNoToken(false);
-      // } catch (e: any) {
-      //   if (e.response.status === 404) {
-      //     setNoToken(true);
-      //     setNoAccessState(false);
-      //   }
-      //   if (e.response.status === 403) {
-      //     setNoToken(false);
-      //     setNoAccessState(true);
-      //   }
-      // }
-    };
-    if (token) {
-      getLoyaltyPrograms();
+    const getUserRating = async () => {
+      if (token) {
+        const res = await tokens(Number(token));
+        setUserGlobalRating(Number(res.globalRating))
+        console.log(res)
+      }
     }
-  }, [token]);
+    const checkIfBusiness = async () => {
+      if (!address) {
+        return
+      }
+      const res = await getAddressProviders(address)
+      setIsBusiness(res?.length > 0)
+      setBusinessId(Number(res[0]))
+    }
+    getUserRating()
+    checkIfBusiness()
+  }, [token, address]);
+
+  useEffect(() => {
+    if (isBusiness && token && businessId) {
+      const getInfoUser = async () => {
+        const userLocalRatingResult = await getTokenProviderFinalRating(Number(token), businessId)
+        const loyaltyPointsResult = await getTokenProviderLoyaltyPoints(Number(token), businessId)
+        setUserLocalRating(Number(userLocalRatingResult))
+        setUserLoyaltyPoints(Number(loyaltyPointsResult))
+      }
+      getInfoUser()
+    }
+  }, [businessId, isBusiness])
+
+  const saveRatingHandle = () => {
+    setUpdatingRating(true)
+    setTimeout(() => {
+      setUpdatingRating(false)
+      toast.success('Updated!')
+      setUserNewRating(undefined)
+      console.log(userNewRating)
+    }, 2000)
+  }
 
   return (
-    <div>
-      {noAccessState === false && tokenExist ? (
-        <>
-          <div className={s.control}>
-            <div className={s.title}>Loyalty Programs</div>
+    <>
+      {isBusiness && tokenExist ? (
+        <div className={s.container}>
+          <div className={s.leftPull}>
+            <div className={s.headLeftPull}>
+              <div className={s.title}>Rate interaction with user #{token}</div>
+              <div className={s.description}>choose star from 1 to 5</div>
+            </div>
+            <>
+              <UserRating rating={userNewRating}
+                          setRating={setUserNewRating}
+                          withUpdate />
+              <Button loading={updatingRating}
+                      disabled={userNewRating === undefined}
+                      onClick={saveRatingHandle}
+                      className={s.saveBtn} icon="pi pi-check"
+                      label="Save" />
+            </>
+            <UpdateScoreCard className={s.updateScoreCard}
+                             setUserLoyalPoints={setUserLoyalPoints}
+                             userLoyalPoints={10} />
           </div>
-          <div ref={ref} className={s.qrContainer}>
-            <div className={s.content}>
-              <div className={s.subtitle}>
-                <img src={`${backend.defaults.baseURL}/render/token/${token}`} />
-              </div>
-              <div className={s.qrTitle}>{`${nodeName} points`}</div>
-              <span className={s.points}>{userPoints}</span>
-              <div className={s.changeScoreContainer}>
-                <input
-                  className={s.input}
-                  onChange={(e: any) => setInputValue(e.target.value)}
-                  type={'number'}
-                  placeholder="Enter a new amount of points"
-                />
-                {inputValue && inputValue !== userPoints ? (
-                  <span className={s.hint}>
-                    {userPoints > inputValue
-                      ? `${Math.abs(userPoints - inputValue)} points will be deducted`
-                      : `${Math.abs(userPoints - inputValue)} points will be added`}
-                  </span>
-                ) : null}
-              </div>
-              <Button
-                disabled={userPoints === inputValue}
-                onClick={updateUserPoints}
-                className={s.button}
-              >
-                Update score
-              </Button>
+          <div className={s.rightPull}>
+            <div className={s.rightPullItem}>
+              <span className={s.rightPullItemTitle}>Local rating:</span>
+              <UserRating setRating={setUserLocalRating} rating={userLocalRating} withUpdate={false} />
+            </div>
+            <div className={s.rightPullItem}>
+              <span className={s.rightPullItemTitle}> Global rating:</span>
+              <UserRating setRating={setUserGlobalRating} rating={userGlobalRating} withUpdate={false} />
             </div>
           </div>
-        </>
+        </div>
       ) : !tokenExist ? (
         <>It seems that such a token does not exist.</>
-      ) : noAccessState ? (
+      ) : !isBusiness ? (
         <> It seems that you do not have access rights to view this page</>
       ) : (
         <span className={s.noAccessText}>
           <ProgressSpinner />
         </span>
       )}
-    </div>
+    </>
   );
 };

@@ -1,10 +1,10 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC } from 'react'
 import { IUserRating } from './UserRating.types'
 import s from './UserRating.module.scss'
 import { Rating } from 'primereact/rating'
 import { Counter } from '../Counter/Counter'
 
-export const UserRating: FC<IUserRating> = ({ rating, setRating }) => {
+export const UserRating: FC<IUserRating> = ({ withUpdate, setRating, rating }) => {
   const handleRatingChange = (rating: any) => {
       setRating(rating)
   }
@@ -12,9 +12,6 @@ export const UserRating: FC<IUserRating> = ({ rating, setRating }) => {
     <div className={s.rating}>
       <Counter targetValue={rating} duration={1500} decimalPlaces={1} />
     </div>
-    <Rating readOnly cancel={false} className={s.ratingStyles} value={rating} onChange={(e) => handleRatingChange(e.target.value)} />
-    <span className={s.description}>
-      5-star rating based on your history
-    </span>
+    <Rating readOnly={!withUpdate} cancel={false} className={s.ratingStyles} value={rating} onChange={(e) => handleRatingChange(e.target.value)} />
   </div>
 }

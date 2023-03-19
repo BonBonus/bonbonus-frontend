@@ -85,10 +85,10 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@bonbonus/bonbonus-protocol@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@bonbonus/bonbonus-protocol/-/bonbonus-protocol-0.0.7.tgz#5fbadaa346acde870a13eb33207a4d3561131d16"
-  integrity sha512-VXCi4I5gjmEZF6r9q42Gxh4/JaLFTrLLIPBorxAO0ZivvpjJAI2U8JfqxOjJxcZ38GnIDpqp66dTqmSLJ7/Fnw==
+"@bonbonus/bonbonus-protocol@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@bonbonus/bonbonus-protocol/-/bonbonus-protocol-0.0.10.tgz#cd9a631d383bd44ff69b8406e55e96fc2e510afd"
+  integrity sha512-0F03STUxwbzaJUmJkFd9fVC/0uP3jLVWJFbVnOALqZps47gS2LnALPRiFzvXkuVO6eY6/Tu4fzXwKH7G+/md+Q==
   dependencies:
     "@chainlink/contracts" "^0.6.1"
     "@openzeppelin/contracts" "^4.8.2"
